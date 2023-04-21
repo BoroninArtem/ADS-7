@@ -35,7 +35,7 @@ class TPQueue {
                 newItem->next = first;
                 first = newItem;
             } else {
-                while (begin->next != nullptr && data.prior <= begin->next->data.prior)
+                while (begin->next && data.prior <= begin->next->data.prior)
                     begin = begin->next;
                 newItem->next = begin->next;
                 begin->next = newItem;

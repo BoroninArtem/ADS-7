@@ -3,6 +3,7 @@
 #define INCLUDE_TPQUEUE_H_
 template<typename T>
 class TPQueue {
+ 
  private:
     struct Item {
         T data;
@@ -15,6 +16,7 @@ class TPQueue {
         item->next = nullptr;
         return item;
     }
+ 
  public:
     TPQueue() :first(nullptr), tail(nullptr) {}
     ~TPQueue() {
@@ -22,20 +24,18 @@ class TPQueue {
             pop();
     }
     void push(const T& data) {
-        if (!isEmpty) {
+        if (!isEmpty()) {
             Item* begin = first;
             Item* newItem = create(data);
             if (first == tail) {
                 if (data.prior > first->data.prior) {
                     newItem->next = first;
                     first = newItem;
-                }
-                else {
+                } else {
                     first->next = newItem;
                     tail = newItem;
                 }
-            }
-            else {
+            } else {
                 Item* prev = nullptr;
                 while (begin != tail && data.prior <= begin->data.prior) {
                     prev = begin;
@@ -45,18 +45,15 @@ class TPQueue {
                     newItem->next = begin;
                     if (prev) {
                         prev->next = newItem;
-                    }
-                    else {
+                    } else {
                         first = newItem;
                     }
-                }
-                else {
+                } else {
                     tail->next = newItem;
                     tail = newItem;
                 }
             }
-        }
-        else {
+        } else {
             first = create(data);
             tail = first;
         }
